@@ -1,4 +1,6 @@
 
+#pragma once
+
 #include <optional>
 
 template <typename Genome>

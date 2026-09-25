@@ -1,7 +1,9 @@
 
+#pragma once
+
 #include <population.hpp>
 
 template <typename Genome>
 struct Crossover{
-    virtual crossover(Population&<Genome> population) = 0;
+    virtual void crossover(Population<Genome>& population) = 0;
 };

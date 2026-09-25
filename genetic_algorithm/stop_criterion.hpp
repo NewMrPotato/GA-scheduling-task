@@ -1,4 +1,6 @@
 
+#pragma once
+
 #include <population.hpp>
 
 template <typename Genome>

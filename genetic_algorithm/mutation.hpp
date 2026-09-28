@@ -6,4 +6,6 @@
 template <typename Genome>
 struct Mutation{
     virtual void mutate(Population<Genome>& population) = 0;
+
+    virtual ~Mutation() = default;
 };

@@ -6,5 +6,5 @@
 
 template <typename Genome>
 struct Population{
-    std::vector<Genome> chromosomes;
+    std::vector<Chromosome<Genome>> chromosomes;
 };

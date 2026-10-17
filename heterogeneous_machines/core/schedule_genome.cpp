@@ -2,7 +2,7 @@
 #include <vector>
 
 class ScheduleGenome{
-private: 
+private:
     std::vector<int> matching;
     std::vector<int> scheduling;
 

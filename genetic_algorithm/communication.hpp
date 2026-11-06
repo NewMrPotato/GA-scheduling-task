@@ -1,6 +1,8 @@
 
 #pragma once
 
+namespace ga::core {
+
 template <typename Transfer>
 struct Communication {
 
@@ -8,3 +10,5 @@ struct Communication {
 
     virtual ~Communication() = default;
 };
+
+}

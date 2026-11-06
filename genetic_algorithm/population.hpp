@@ -5,6 +5,8 @@
 #include <cstddef>
 #include "chromosome.hpp"
 
+namespace ga::core {
+
 template <typename Genome>
 class Population{
     private:
@@ -31,3 +33,5 @@ class Population{
         return chromosomes.size();
     }
 };
+
+}

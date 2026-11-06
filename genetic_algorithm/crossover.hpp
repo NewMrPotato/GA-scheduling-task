@@ -3,6 +3,8 @@
 
 #include "population.hpp"
 
+namespace ga::core {
+
 template <typename Genome>
 struct Crossover{
 
@@ -10,3 +12,5 @@ struct Crossover{
 
     virtual ~Crossover() = default;
 };
+
+}

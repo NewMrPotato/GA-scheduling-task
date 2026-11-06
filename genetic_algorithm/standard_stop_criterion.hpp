@@ -1,6 +1,8 @@
 #pragma once
 #include "stop_criterion.hpp"
 
+namespace ga::core {
+
 template <typename Genome>
 class StandardStopCriterion : public StopCriterion<Genome> {
 public:
@@ -35,3 +37,5 @@ private:
     std::size_t stagnation_limit;
     bool stop_on_convergence;
 };
+
+}

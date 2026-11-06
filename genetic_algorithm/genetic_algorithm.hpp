@@ -15,6 +15,8 @@
 #include <stdexcept>
 #include <utility>
 
+namespace ga::core {
+
 template <typename Genome>
 class GeneticAlgorithm {
 public:
@@ -158,3 +160,5 @@ private:
     RunStatistics statistics;
 
 };
+
+}

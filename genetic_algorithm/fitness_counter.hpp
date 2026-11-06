@@ -3,6 +3,8 @@
 
 #include "chromosome.hpp"
 
+namespace ga::core {
+
 template <typename Genome>
 struct FitnessCounter{
 
@@ -10,3 +12,5 @@ struct FitnessCounter{
 
     virtual ~FitnessCounter() = default;
 };
+
+}

@@ -4,6 +4,8 @@
 #include <cmath>
 #include <stdexcept>
 
+namespace ga::core {
+
 template <typename Genome, typename Transfer>
 class CommunicatingFitnessCounter : public FitnessCounter<Genome> {
 public:
@@ -23,3 +25,5 @@ private:
 
     const Communication<Transfer>& communication;
 };
+
+}

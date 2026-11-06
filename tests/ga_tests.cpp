@@ -9,6 +9,17 @@
 #include <string>
 
 
+using ga::core::Chromosome;
+using ga::core::CommunicatingFitnessCounter;
+using ga::core::Communication;
+using ga::core::Crossover;
+using ga::core::FitnessCounter;
+using ga::core::GeneticAlgorithm;
+using ga::core::Mutation;
+using ga::core::Population;
+using ga::core::Selection;
+using ga::core::StandardStopCriterion;
+
 void require(bool condition, const std::string& message) {
 	if (!condition) {
 		throw std::runtime_error(message);

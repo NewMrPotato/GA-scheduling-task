@@ -32,6 +32,12 @@ class Population{
     std::size_t size() const{
         return chromosomes.size();
     }
+
+    auto begin() { return chromosomes.begin(); }
+    auto end() { return chromosomes.end(); }
+
+    auto begin() const { return chromosomes.begin(); }
+    auto end() const { return chromosomes.end(); }
 };
 
 }

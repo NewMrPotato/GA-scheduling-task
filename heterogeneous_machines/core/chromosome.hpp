@@ -6,9 +6,8 @@
 namespace ga::schedule {
 
 template <typename Genome>
-class SchedulingChromosome : public ga::core::Chromosome<Genome>{
-    
+class ScheduleChromosome : public ga::core::Chromosome<Genome>{
+        
 };
-
 
 }

@@ -1,19 +1,28 @@
 
-#pragma once
+	#pragma once
 
-#include <cstddef>
+	#include <cstddef>
 
-namespace ga::schedule{
+	namespace ga::schedule{
 
-struct Machine{
-    double input_bandwidth;
-    double output_bandwidth;
-};
+	class Machine{
+	private:
+		double input_bandwidth;
+		double output_bandwidth;
 
-struct Transfer{
-	std::size_t input_machine;
-	std::size_t output_machine;
-	std::size_t data_id;
-};
+	public:
+		Machine(double input_bandwidth, double output_bandwidth) :
+		input_bandwidth(input_bandwidth),
+		output_bandwidth(output_bandwidth){
+		}
 
-}
+		double get_in_bandwidth() const {
+			return input_bandwidth;
+		}
+
+		double get_out_bandwidth() const {
+			return output_bandwidth;
+		}
+	};
+
+	}

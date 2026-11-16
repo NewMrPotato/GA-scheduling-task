@@ -8,7 +8,7 @@ namespace ga::core {
 template <typename Genome>
 struct FitnessCounter{
 
-    virtual double count(const Chromosome<Genome>& chromosome) = 0;
+    virtual std::optional<double> count_fitness(const Chromosome<Genome>& chromosome) = 0;
 
     virtual ~FitnessCounter() = default;
 };

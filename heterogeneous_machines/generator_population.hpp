@@ -36,31 +36,6 @@ public:
      initial_matching(matching), 
      machine_count(machine_count),
      random_engine(random_engine){
-
-        // population = SchedulePopulation<Genome>();
-
-        // for (int i = 0; i < population_size, i++){
-        //     std::uniform_int_distribution<std::size_t> choose_machine(
-        //         0, machine_count - 1
-        //     );
-
-        //     std::vector<std::size_t> new_matching(initial_matching.size());
-
-        //     for (auto& machine : new_matching) {
-        //         machine = choose_machine(random_engine);
-        //     }
-        //     std::shuffle(new_scheduling.begin(), new_scheduling.end(), random_engine);
-
-        //     std::vector<std::size_t> new_scheduling = initial_scheduling;
-        //     std::vector<std::size_t> sorted_scheduling = topological_sort(task_dependencies, new_scheduling);
-
-        //     ScheduleGenome genome(new_matching, new_scheduling);
-            
-        //     population.add(genome);
-        // }
-
-        // return population;
-        
     }
 
     SchedulePopulation<Genome> generate(

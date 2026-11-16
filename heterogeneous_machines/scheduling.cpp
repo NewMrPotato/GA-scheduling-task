@@ -5,12 +5,17 @@
 #include "core/chromosome.hpp"
 #include "core/communication.hpp"
 #include "core/fitness_counter.hpp"
+#include "selections/selection.hpp"
+#include "mutations/mutation.hpp"
+#include "crossovers/crossover.hpp"
 #include <cstddef>
 #include <random>
 #include <vector>
 #include <iostream>
 #include <algorithm>
 #include <optional>
+#include <memory>
+#include <stdexcept>
 
 
 int main() {
@@ -88,15 +93,35 @@ int main() {
         {ScheduleGenome(matching, scheduling), std::nullopt}
     };
 
-    std::cout << "Reference chromosome:\n";
-    std::cout << test_chromosome;
-    std::cout << "Calculated fitness: "
-              << *fitness_counter.count_fitness(test_chromosome)
-              << "\n\n";
+	test_chromosome.fitness = fitness_counter.count_fitness(test_chromosome);
+	std::cout << "Reference chromosome:\n" << test_chromosome << '\n';
 
-    for (auto& chromosome : population) {
-        chromosome.fitness = fitness_counter.count_fitness(chromosome);
-        std::cout << chromosome << '\n';
-    }
+	double initial_best = 0.0;
+	for (std::size_t i = 0; i < population.size(); ++i) {
+		population[i].fitness = fitness_counter.count_fitness(population[i]);
+		if (!population[i].fitness) {
+			throw std::runtime_error("Invalid initial chromosome");
+		}
+		if (i == 0 || *population[i].fitness < initial_best) {
+			initial_best = *population[i].fitness;
+		}
+	}
+	std::cout << "Initial best makespan: " << initial_best << "\n\n";
 
+	ga::core::GeneticAlgorithm<ScheduleGenome> algorithm(
+		population,
+		std::make_unique<TournamentSelection>(),
+		std::make_unique<ScheduleMutation>(machine_count, task_dependencies),
+		std::make_unique<ScheduleCrossover>(),
+		std::make_unique<ScheduleFitnessCounter<ScheduleGenome, Transfer>>(
+			communication, task_dependencies, execution_time, output_size
+		),
+		std::make_unique<ga::core::StandardStopCriterion<ScheduleGenome>>(100, 30)
+	);
+
+	auto best = algorithm.run();
+	std::cout << "Best chromosome:\n" << best;
+	std::cout << "Generations: " << algorithm.stats().generation << '\n';
+
+	return 0;
 }

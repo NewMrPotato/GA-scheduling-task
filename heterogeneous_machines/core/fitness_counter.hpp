@@ -93,7 +93,7 @@ public:
 
             for (std::size_t next : graph_[task]) {
 
-                if (next >= task_count ||
+                if (next >= task_count || next == task ||
                     processed[next] ||
                     matching[next] >= machine_count)
                     return std::nullopt;

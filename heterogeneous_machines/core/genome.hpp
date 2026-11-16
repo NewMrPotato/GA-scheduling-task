@@ -26,7 +26,7 @@ public:
     }
 
 };
-    std::ostream& operator<<(
+    inline std::ostream& operator<<(
         std::ostream& out,
         const ScheduleGenome& genome
     ) {

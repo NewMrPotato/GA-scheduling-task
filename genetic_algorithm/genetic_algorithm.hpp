@@ -127,8 +127,9 @@ private:
         invalidate_fitness();
 
         for (std::size_t i = 0; i < population.size(); ++i) {
-            const double score = fitness_counter->count(population[i]);
-            if (!std::isfinite(score)) throw std::domain_error("Non-finite fitness");
+            const auto score = fitness_counter->count_fitness(population[i]);
+            if (!score || !std::isfinite(*score))
+                throw std::domain_error("Fitness must have a finite value");
             population[i].fitness = score;
         }
     }

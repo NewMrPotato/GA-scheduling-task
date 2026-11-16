@@ -83,7 +83,7 @@ struct Link : Communication<Transfer> {
 struct Evaluate : CommunicatingFitnessCounter<int, Transfer> {
     using CommunicatingFitnessCounter::CommunicatingFitnessCounter;
 
-    double count(const Chromosome<int>& c) override {
+    std::optional<double> count_fitness(const Chromosome<int>& c) override {
         REQUIRE_FALSE(c.fitness.has_value());
         return c.genome + communication_time(Transfer{1});
     }
@@ -96,9 +96,15 @@ struct BadSelection : Selection<int> {
 };
 
 struct NaNEvaluator : FitnessCounter<int> {
-    double count(const Chromosome<int>&) override {
+    std::optional<double> count_fitness(const Chromosome<int>&) override {
         return std::numeric_limits<double>::quiet_NaN();
     }
+};
+
+struct MissingEvaluator : FitnessCounter<int> {
+	std::optional<double> count_fitness(const Chromosome<int>&) override {
+		return std::nullopt;
+	}
 };
 
 struct TestContext {
@@ -119,7 +125,8 @@ enum class Mode {
     Normal,
     Maximize,
     EmptySelection,
-    NaNFitness
+    NaNFitness,
+    MissingFitness
 };
 
 
@@ -137,6 +144,9 @@ GeneticAlgorithm<int> make_ga(TestContext& context,
     if (mode == Mode::NaNFitness) {
         evaluator = std::make_unique<NaNEvaluator>();
     }
+	if (mode == Mode::MissingFitness) {
+		evaluator = std::make_unique<MissingEvaluator>();
+	}
 
     std::function<bool(double, double)> better = std::less<double>{};
     if (mode == Mode::Maximize) {
@@ -261,6 +271,14 @@ TEST_CASE("Non-finite fitness", "[ga][errors]") {
     auto ga = make_ga(context, stop, Mode::NaNFitness);
 
     REQUIRE_THROWS_AS(ga.run(), std::domain_error);
+}
+
+TEST_CASE("Missing fitness", "[ga][errors]") {
+	TestContext context;
+	StandardStopCriterion<int> stop(2);
+	auto ga = make_ga(context, stop, Mode::MissingFitness);
+
+	REQUIRE_THROWS_AS(ga.run(), std::domain_error);
 }
 
 TEST_CASE("Convergence", "[stop]") {

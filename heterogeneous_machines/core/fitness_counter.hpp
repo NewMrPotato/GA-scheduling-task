@@ -10,11 +10,13 @@
 #include <cstddef>
 #include <optional>
 #include <vector>
+#include "../concepts/genome.hpp"
 
 
 namespace ga::schedule {
 
 template <typename Genome, typename Transfer>
+requires ScheduleGenomeType<Genome>
 class ScheduleFitnessCounter
     : public ga::core::CommunicatingFitnessCounter<Genome, Transfer> {
 

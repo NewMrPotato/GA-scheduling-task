@@ -7,6 +7,7 @@
 #include <algorithm>
 #include <cmath>
 #include <stdexcept>
+#include "../concepts/genome.hpp"
 
 
 namespace ga::schedule {
@@ -19,7 +20,7 @@ struct Transfer{
 };
 
 
-template <typename Transfer>
+template <TranferType Transfer>
 class ScheduleCommunication : public ga::core::Communication<Transfer>{
 
 private:

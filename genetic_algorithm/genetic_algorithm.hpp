@@ -14,10 +14,12 @@
 #include <memory>
 #include <stdexcept>
 #include <utility>
+#include "concepts/genome.hpp"
+
 
 namespace ga::core {
 
-template <typename Genome>
+template <GenomeType Genome>
 class GeneticAlgorithm {
 public:
 

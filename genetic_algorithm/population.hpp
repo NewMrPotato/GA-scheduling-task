@@ -4,10 +4,12 @@
 #include <vector>
 #include <cstddef>
 #include "chromosome.hpp"
+#include "concepts/genome.hpp"
+
 
 namespace ga::core {
 
-template <typename Genome>
+template <GenomeType Genome>
 class Population{
     private:
     std::vector<Chromosome<Genome>> chromosomes;

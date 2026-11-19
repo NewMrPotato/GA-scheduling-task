@@ -3,10 +3,11 @@
 
 #include <optional>
 #include <ostream>
+#include "concepts/genome.hpp"
 
 namespace ga::core {
 
-template <typename Genome>
+template <GenomeType Genome>
 struct Chromosome{
     Genome genome;
     std::optional<double> fitness;

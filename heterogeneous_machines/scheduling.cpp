@@ -2,7 +2,6 @@
 #include "core/machine.hpp"
 #include "generator_population.hpp"
 #include "core/genome.hpp"
-#include "core/chromosome.hpp"
 #include "core/communication.hpp"
 #include "core/fitness_counter.hpp"
 #include "selections/selection.hpp"
@@ -12,10 +11,7 @@
 #include <random>
 #include <vector>
 #include <iostream>
-#include <algorithm>
-#include <optional>
 #include <memory>
-#include <stdexcept>
 
 
 int main() {
@@ -82,32 +78,6 @@ int main() {
         network_latency
     );
 
-    ScheduleFitnessCounter<ScheduleGenome, Transfer> fitness_counter(
-        communication,
-        task_dependencies,
-        execution_time,
-        output_size
-    );
-
-    ScheduleChromosome<ScheduleGenome> test_chromosome{
-        {ScheduleGenome(matching, scheduling), std::nullopt}
-    };
-
-	test_chromosome.fitness = fitness_counter.count_fitness(test_chromosome);
-	std::cout << "Reference chromosome:\n" << test_chromosome << '\n';
-
-	double initial_best = 0.0;
-	for (std::size_t i = 0; i < population.size(); ++i) {
-		population[i].fitness = fitness_counter.count_fitness(population[i]);
-		if (!population[i].fitness) {
-			throw std::runtime_error("Invalid initial chromosome");
-		}
-		if (i == 0 || *population[i].fitness < initial_best) {
-			initial_best = *population[i].fitness;
-		}
-	}
-	std::cout << "Initial best makespan: " << initial_best << "\n\n";
-
 	ga::core::GeneticAlgorithm<ScheduleGenome> algorithm(
 		population,
 		std::make_unique<TournamentSelection>(),
@@ -121,7 +91,4 @@ int main() {
 
 	auto best = algorithm.run();
 	std::cout << "Best chromosome:\n" << best;
-	std::cout << "Generations: " << algorithm.stats().generation << '\n';
-
-	return 0;
 }

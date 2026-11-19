@@ -1,9 +1,11 @@
 #pragma once
 #include "stop_criterion.hpp"
+#include "concepts/genome.hpp"
+
 
 namespace ga::core {
 
-template <typename Genome>
+template <GenomeType Genome>
 class StandardStopCriterion : public StopCriterion<Genome> {
 public:
     StandardStopCriterion(std::size_t max_generations,

@@ -3,10 +3,12 @@
 #include "fitness_counter.hpp"
 #include <cmath>
 #include <stdexcept>
+#include "concepts/genome.hpp"
+
 
 namespace ga::core {
 
-template <typename Genome, typename Transfer>
+template <GenomeType Genome, typename Transfer>
 class CommunicatingFitnessCounter : public FitnessCounter<Genome> {
 public:
     CommunicatingFitnessCounter(const Communication<Transfer>& model)

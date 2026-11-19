@@ -3,10 +3,12 @@
 
 #include <genetic_algorithm/ga.hpp>
 #include "genome.hpp"
+#include "../concepts/genome.hpp"
+
 
 namespace ga::schedule {
 
-template <typename Genome>
+template <ScheduleGenomeType Genome>
 class SchedulePopulation : public ga::core::Population<Genome>{
     
 };

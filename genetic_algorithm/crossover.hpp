@@ -2,10 +2,11 @@
 #pragma once
 
 #include "population.hpp"
+#include "concepts/genome.hpp"
 
 namespace ga::core {
 
-template <typename Genome>
+template <GenomeType Genome>
 struct Crossover{
 
     virtual void crossover(Population<Genome>& population) = 0;

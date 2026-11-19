@@ -2,10 +2,12 @@
 #pragma once
 
 #include "population.hpp"
+#include "concepts/genome.hpp"
+
 
 namespace ga::core {
 
-template <typename Genome>
+template <GenomeType Genome>
 struct Selection{
 
     virtual Population<Genome> select(const Population<Genome>& population) = 0;

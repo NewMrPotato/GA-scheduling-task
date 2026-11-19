@@ -15,8 +15,7 @@
 
 namespace ga::schedule {
 
-template <typename Genome, typename Transfer>
-requires ScheduleGenomeType<Genome>
+template <ScheduleGenomeType Genome, TranferType Transfer>
 class ScheduleFitnessCounter
     : public ga::core::CommunicatingFitnessCounter<Genome, Transfer> {
 
